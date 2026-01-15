@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Icon Font Preview</title>
+    <link rel="stylesheet" href="iconfont.css" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f5f5f5;
+        margin: 0;
+        padding: 40px;
+      }
+      h1 {
+        color: #333;
+        text-align: center;
+        margin-bottom: 40px;
+      }
+      .icon-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        max-width: 1200px;
+        margin: 0 auto;
+        justify-content: flex-start;
+      }
+      .icon-card {
+        width: calc((100% / 6) - 15px);
+        min-width: 140px;
+        padding: 20px 15px 15px;
+        background: #e5e5e6;
+        border-radius: 8px;
+        cursor: pointer;
+        box-sizing: border-box;
+        transition: all 0.3s;
+        text-align: center;
+      }
+      .icon-card [class^="icon-"] {
+        font-size: 32px;
+        color: #333;
+        margin-bottom: 10px;
+        display: block;
+      }
+      .icon-card .name {
+        font-size: 12px;
+        color: #666;
+        word-break: break-all;
+      }
+      .icon-card:hover {
+        background: #0b6666;
+        transform: translateY(-4px);
+        box-shadow: 0 8px 20px rgba(11, 102, 102, 0.3);
+      }
+      .icon-card:hover [class^="icon-"],
+      .icon-card:hover .name {
+        color: #fff;
+      }
+      .toast {
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #333;
+        color: #fff;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-size: 14px;
+        opacity: 0;
+        transition: opacity 0.3s;
+        pointer-events: none;
+        z-index: 1000;
+      }
+      .toast.show {
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Icon Font Preview</h1>
+    <div class="icon-grid" id="iconGrid"></div>
+    <div class="toast" id="toast">Copied!</div>
+
+    <script>
+      const iconData = <%- JSON.stringify(icons) %>;
+      const iconGrid = document.getElementById('iconGrid');
+      const toast = document.getElementById('toast');
+
+      function showToast(message) {
+          toast.textContent = message;
+          toast.classList.add('show');
+          setTimeout(() => toast.classList.remove('show'), 2000);
+      }
+
+      function copyToClipboard(text) {
+          if (navigator.clipboard) {
+              navigator.clipboard.writeText(text).then(() => {
+                  showToast(`Copied: ${text}`);
+              }).catch(() => fallbackCopy(text));
+          } else {
+              fallbackCopy(text);
+          }
+      }
+
+      function fallbackCopy(text) {
+          const textarea = document.createElement('textarea');
+          textarea.value = text;
+          textarea.style.position = 'fixed';
+          textarea.style.opacity = '0';
+          document.body.appendChild(textarea);
+          textarea.select();
+          try {
+              document.execCommand('copy');
+              showToast(`Copied: ${text}`);
+          } catch (err) {
+              showToast('Copy failed');
+          }
+          document.body.removeChild(textarea);
+      }
+
+      iconGrid.innerHTML = iconData.map((item) => {
+          const className = `icon-${item.name}`;
+          return `<div class="icon-card" data-class="${className}">
+              <span class="${className}"></span>
+              <span class="name">${className}</span>
+          </div>`;
+      }).join('');
+
+      iconGrid.addEventListener('click', (e) => {
+          const card = e.target.closest('.icon-card');
+          if (card) {
+              const className = card.dataset.class;
+              copyToClipboard(className);
+          }
+      });
+    </script>
+  </body>
+</html>
