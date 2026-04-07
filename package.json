@@ -1,9 +1,45 @@
 {
-  "name": "iconfont-generator",
+  "name": "@gacfox/iconfont-generator",
   "version": "1.0.0",
-  "main": "iconfont.js",
+  "description": "A tool that converts SVG icons into web font formats (TTF, WOFF, WOFF2, EOT) and generates CSS/HTML preview files.",
   "type": "module",
-  "devDependencies": {
+  "main": "iconfont.js",
+  "bin": {
+    "iconfont-generator": "./bin/cli.js"
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    "template/"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "iconfont",
+    "svg",
+    "font",
+    "ttf",
+    "woff",
+    "woff2",
+    "eot",
+    "icon",
+    "generator"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gacfox/iconfont-generator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gacfox/iconfont-generator/issues"
+  },
+  "homepage": "https://github.com/gacfox/iconfont-generator#readme",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "dependencies": {
     "ejs": "^3.1.10",
     "fs-extra": "^11.2.0",
     "svg2ttf": "^5.2.0",
