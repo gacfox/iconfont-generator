@@ -1,11 +1,11 @@
 {
   "name": "@gacfox/iconfont-generator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A tool that converts SVG icons into web font formats (TTF, WOFF, WOFF2, EOT) and generates CSS/HTML preview files.",
   "type": "module",
   "main": "iconfont.js",
   "bin": {
-    "iconfont-generator": "./bin/cli.js"
+    "iconfont-generator": "bin/cli.js"
   },
   "files": [
     "bin/",
