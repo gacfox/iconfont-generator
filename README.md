@@ -11,13 +11,21 @@
 
 ## 使用方法
 
-先安装依赖。
+### 作为命令行工具使用
+
+```bash
+npx @gacfox/iconfont-generator -i <svg路径> -o <输出路径> 
+```
+
+### 作为工程使用
+
+先克隆项目并安装依赖。
 
 ```bash
 npm install
 ```
 
-然后执行NodeJS程序。
+将你的SVG图片放入`svg`文件夹中，然后执行NodeJS程序。
 
 ```bash
 node ./iconfont.js
